@@ -1,0 +1,96 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:16.3-alpine
+    container_name: zabbix-db
+    environment:
+      POSTGRES_DB: zabbix
+      POSTGRES_USER: zabbix
+      POSTGRES_PASSWORD: zabbix
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./zabbix/db:/var/lib/postgresql/data
+    networks:
+      zbx_net:
+        ipv4_address: 192.168.88.19
+
+  zabbix-server:
+    image: zabbix/zabbix-server-pgsql:7.0.4-alpine
+    container_name: zabbix-server
+    hostname: Zabbix-server
+    environment:
+      DB_SERVER_HOST: postgres
+      POSTGRES_USER: zabbix
+      POSTGRES_PASSWORD: zabbix
+      POSTGRES_DB: zabbix
+      ZBX_STARTDISCOVERERS: 5
+      ZBX_STARTPOLLERS: 10
+      ZBX_ENABLE_SNMP_TRAPS: true
+      ZBX_CACHESIZE: 1024M
+      ZBX_HISTORYCACHESIZE: 512M
+      ZBX_HISTORYINDEXCACHESIZE: 128M
+      ZBX_VALUECACHESIZE: 128M
+    ports:
+      - "10051:10051"
+      - "10049:10049"
+    depends_on:
+      - postgres
+    volumes:
+      - ./zabbix/varlib:/var/lib/zabbix
+    networks:
+      zbx_net:
+        ipv4_address: 192.168.88.20
+      host_bridge:
+
+  zabbix-web:
+    image: zabbix/zabbix-web-apache-pgsql:7.0.4-alpine
+    container_name: zabbix-frontend
+    environment:
+      DB_SERVER_HOST: postgres
+      POSTGRES_USER: zabbix
+      POSTGRES_PASSWORD: zabbix
+      POSTGRES_DB: zabbix
+      ZBX_SERVER_HOST: zabbix-server
+      ZBX_SERVER_NAME: Zabbix server
+      PHP_TZ: America/Argentina/Buenos_Aires
+    ports:
+      - "8080:8080"
+      - "80:80"
+    depends_on:
+      - zabbix-server
+    volumes:
+      - ./zabbix/front:/etc/ssl/nginx
+    networks:
+      zbx_net:
+        ipv4_address: 192.168.88.21
+      host_bridge:
+
+  zabbix-agent:
+    image: zabbix/zabbix-agent2:7.0.4-alpine
+    container_name: zabbix-agent2
+    environment:
+      ZBX_SERVER_HOST: zabbix-server
+      ZBX_HOSTNAME: "Zabbix server"
+      ZBX_SERVER_ACTIVE: zabbix-server
+      ZBX_SERVER_PORT: 10050
+    depends_on:
+      - zabbix-server
+    volumes:
+      - ./zabbix/zabbix-agent:/var/lib/zabbix
+    restart: unless-stopped
+    networks:
+      host_bridge:
+
+networks:
+  zbx_net:
+    driver: ipvlan
+    driver_opts:
+      parent: enp0s31f6   # Cambiar según interfaz física
+      ipvlan_mode: l2
+    ipam:
+      config:
+        - subnet: 192.168.88.0/24
+          gateway: 192.168.88.1
+  host_bridge:
+    driver: bridge
