@@ -48,7 +48,6 @@ Actualmente el repositorio incluye:
   - Integración con PostgreSQL y frontend web.  
   - Configuración de descubrimiento SNMP.  
   - Monitoreo de servicios y métricas clave.  
-  - Ejemplos de integración con FortiNAC y servicios web JSON.  
 
 - **🛠️ GLPI - Gestión de activos y Helpdesk**  
   Ejemplos de instalación y configuración de GLPI en entornos Docker, aplicados a:
