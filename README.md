@@ -71,7 +71,7 @@ Actualmente el repositorio incluye:
 
 1. Cloná el repositorio en tu máquina:
 
-   git clone https://github.com/<usuario>/<repo>.git
+   git clone https://github.com/alejandrogarcialamazon/istea.git8
 
 
 📌 Notas finales
