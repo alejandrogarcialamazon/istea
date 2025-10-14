@@ -166,7 +166,7 @@ Configurar un router Cisco IOSv para habilitar el servicio SNMPv2c y verificar d
 
 
 ### ⚙️ Configuración en el Router (R1)
-```bash
+
 enable
 configure terminal
 hostname R1
