@@ -69,15 +69,15 @@ A continuación se presentan **tres laboratorios** progresivos para aprender y p
 Configurar una traducción fija entre un servidor interno y una IP pública para hacerlo accesible desde Internet.
 
 #### 🖥️ Topología
-[PC Cliente Internet] ---- [Router NAT] ---- [LAN Interna con Servidor]
+[PC Cliente Internet]---- [Router NAT] ---- [SW] ---- [LAN Interna con Servidor]
 200.1.1.100 200.1.1.1 | 192.168.1.1 192.168.1.100
 
 
 #### 🧰 Direccionamiento
 | Dispositivo | Interfaz | IP | Descripción |
 |--------------|-----------|----|--------------|
-| Router | G0/0 | 192.168.1.1 | Red interna |
-| Router | S0/0/0 | 200.1.1.1 | Red pública |
+| Router | fa1/0 | 192.168.1.1 | Red interna |
+| Router | fa0/0 | 200.1.1.1 | Red pública |
 | Servidor | NIC | 192.168.1.100 | Web server interno |
 | Cliente Internet | NIC | 200.1.1.100 | Equipo externo |
 
@@ -85,12 +85,12 @@ Configurar una traducción fija entre un servidor interno y una IP pública para
 
 Router> enable
 Router# configure terminal
-Router(config)# interface g0/0
+Router(config)# interface fa1/0
 Router(config-if)# ip address 192.168.1.1 255.255.255.0
 Router(config-if)# ip nat inside
 Router(config-if)# no shutdown
 
-Router(config)# interface s0/0/0
+Router(config)# interface fa0/0
 Router(config-if)# ip address 200.1.1.1 255.255.255.0
 Router(config-if)# ip nat outside
 Router(config-if)# no shutdown
@@ -119,12 +119,12 @@ Router(config)# access-list 1 permit 192.168.10.0 0.0.0.255
 Router(config)# ip nat pool NAT_POOL 200.1.1.100 200.1.1.110 netmask 255.255.255.0
 Router(config)# ip nat inside source list 1 pool NAT_POOL
 
-Router(config)# interface g0/0
+Router(config)# interface fa0/0
 Router(config-if)# ip address 192.168.10.1 255.255.255.0
 Router(config-if)# ip nat inside
 Router(config-if)# no shutdown
 
-Router(config)# interface s0/0/0
+Router(config)# interface fa1/0
 Router(config-if)# ip address 200.1.1.1 255.255.255.0
 Router(config-if)# ip nat outside
 Router(config-if)# no shutdown
@@ -150,12 +150,12 @@ Permitir que muchas PCs internas salgan a Internet usando una sola IP pública, 
 Router(config)# access-list 1 permit 192.168.20.0 0.0.0.255
 Router(config)# ip nat inside source list 1 interface s0/0/0 overload
 
-Router(config)# interface g0/0
+Router(config)# interface fa0/0
 Router(config-if)# ip address 192.168.20.1 255.255.255.0
 Router(config-if)# ip nat inside
 Router(config-if)# no shutdown
 
-Router(config)# interface s0/0/0
+Router(config)# interface fa1/0
 Router(config-if)# ip address 200.1.1.1 255.255.255.0
 Router(config-if)# ip nat outside
 Router(config-if)# no shutdown
@@ -180,8 +180,13 @@ En la carpeta del repositorio encontrarás los siguientes recursos:
 
 Archivo	Descripción
 nat-static.pkt	Escenario configurado para práctica de NAT estático.
+https://drive.google.com/file/d/1g1zVPhoehzEmpyrZ74MHnSG9lVf0ClHv/view?usp=sharing
+
 nat-dynamic.pkt	Escenario para práctica de NAT dinámico con pool.
+https://drive.google.com/file/d/19Wqn4qhL95aPJxrQ1akxROrAHStngINl/view?usp=sharing
+
 nat-pat.pkt	Escenario para práctica de PAT (NAT Overload).
+https://drive.google.com/file/d/1EPUKPa068IGk8efxXVvdD05oiLvqLVQT/view?usp=sharing
 
 
 
