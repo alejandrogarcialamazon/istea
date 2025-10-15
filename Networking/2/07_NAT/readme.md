@@ -1,10 +1,7 @@
 # 🌐 Clase Práctica: NAT en Redes (Network Address Translation)
 
-**Autor:** Alejandro García Lamazon  
-**Proyecto:** Laboratorio de Redes - IT en Acción  
+**Proyecto:** Laboratorio de Redes
 **Plataforma:** Cisco Packet Tracer  
-**Nivel:** Intermedio  
-**Duración estimada:** 2 horas  
 
 ---
 
