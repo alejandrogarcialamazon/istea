@@ -79,21 +79,21 @@ Configurar una traducción fija entre un servidor interno y una IP pública para
 | Cliente Internet | NIC | 200.1.1.100 | Equipo externo |
 
 #### 🔧 Configuración del Router
-
+-
 Router> enable
 Router# configure terminal
 Router(config)# interface fa1/0
 Router(config-if)# ip address 192.168.1.1 255.255.255.0
 Router(config-if)# ip nat inside
 Router(config-if)# no shutdown
-
+-
 Router(config)# interface fa0/0
 Router(config-if)# ip address 200.1.1.1 255.255.255.0
 Router(config-if)# ip nat outside
 Router(config-if)# no shutdown
-
+-
 Router(config)# ip nat inside source static 192.168.1.100 200.1.1.100
-
+-
 🧩 Verificación
 Router# show ip nat translations
 Router# show ip nat statistics
@@ -112,24 +112,25 @@ Permitir que varias PCs de una LAN accedan a Internet usando un conjunto (pool) 
 [LAN 192.168.10.0/24] ---- [Router NAT] ---- [Red Pública 200.1.1.0/24]
 
 🔧 Configuración del Router
+-
 Router(config)# access-list 1 permit 192.168.10.0 0.0.0.255
 Router(config)# ip nat pool NAT_POOL 200.1.1.100 200.1.1.110 netmask 255.255.255.0
 Router(config)# ip nat inside source list 1 pool NAT_POOL
-
+-
 Router(config)# interface fa0/0
 Router(config-if)# ip address 192.168.10.1 255.255.255.0
 Router(config-if)# ip nat inside
 Router(config-if)# no shutdown
-
+-
 Router(config)# interface fa1/0
 Router(config-if)# ip address 200.1.1.1 255.255.255.0
 Router(config-if)# ip nat outside
 Router(config-if)# no shutdown
-
+-
 🧩 Verificación
 Router# show ip nat translations
 Router# show ip nat statistics
-
+-
 Desde varias PCs, realizar ping a una IP pública (ej. 8.8.8.8 simulado).
 
 Cada equipo tomará una IP diferente del pool.
@@ -144,26 +145,27 @@ Permitir que muchas PCs internas salgan a Internet usando una sola IP pública, 
 [LAN 192.168.20.0/24] ---- [Router NAT] ---- [Internet 200.1.1.0/24]
 
 🔧 Configuración del Router
+-
 Router(config)# access-list 1 permit 192.168.20.0 0.0.0.255
 Router(config)# ip nat inside source list 1 interface s0/0/0 overload
-
+-
 Router(config)# interface fa0/0
 Router(config-if)# ip address 192.168.20.1 255.255.255.0
 Router(config-if)# ip nat inside
 Router(config-if)# no shutdown
-
+-
 Router(config)# interface fa1/0
 Router(config-if)# ip address 200.1.1.1 255.255.255.0
 Router(config-if)# ip nat outside
 Router(config-if)# no shutdown
-
+-
 🧩 Verificación
 Router# show ip nat translations
 Router# show ip nat statistics
-
+-
 Todas las PCs internas deberían acceder simultáneamente usando la misma IP pública (200.1.1.1).
-
-
+-
+-
 🧾 5. Comparativa Final
 Tipo		Nº de IPs Públicas	Escalabilidad	Uso Común
 Static  NAT	Alta			Baja		Servidores públicos
