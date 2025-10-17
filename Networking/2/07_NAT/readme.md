@@ -104,6 +104,7 @@ El router traducirá la IP pública a la IP privada del servidor.
 
 
 🧪 Práctica 2: NAT Dinámico con Pool
+-
 🎯 Objetivo
 
 Permitir que varias PCs de una LAN accedan a Internet usando un conjunto (pool) de IPs públicas.
@@ -111,7 +112,8 @@ Permitir que varias PCs de una LAN accedan a Internet usando un conjunto (pool) 
 🖥️ Topología
 [LAN 192.168.10.0/24] ---- [Router NAT] ---- [Red Pública 200.1.1.0/24]
 
-🔧 Configuración del Router
+🔧 Configuración del Router:
+-
 -
 Router(config)# access-list 1 permit 192.168.10.0 0.0.0.255
 Router(config)# ip nat pool NAT_POOL 200.1.1.100 200.1.1.110 netmask 255.255.255.0
@@ -137,6 +139,7 @@ Cada equipo tomará una IP diferente del pool.
 
 
 🧪 Práctica 3: PAT (NAT Overload)
+-
 🎯 Objetivo
 
 Permitir que muchas PCs internas salgan a Internet usando una sola IP pública, diferenciadas por sus puertos.
@@ -145,6 +148,7 @@ Permitir que muchas PCs internas salgan a Internet usando una sola IP pública, 
 [LAN 192.168.20.0/24] ---- [Router NAT] ---- [Internet 200.1.1.0/24]
 
 🔧 Configuración del Router
+-
 -
 Router(config)# access-list 1 permit 192.168.20.0 0.0.0.255
 Router(config)# ip nat inside source list 1 interface s0/0/0 overload
@@ -159,14 +163,19 @@ Router(config-if)# ip address 200.1.1.1 255.255.255.0
 Router(config-if)# ip nat outside
 Router(config-if)# no shutdown
 -
+
 🧩 Verificación
+-
+-
 Router# show ip nat translations
 Router# show ip nat statistics
 -
 Todas las PCs internas deberían acceder simultáneamente usando la misma IP pública (200.1.1.1).
 -
 -
+
 🧾 5. Comparativa Final
+-
 Tipo		Nº de IPs Públicas	Escalabilidad	Uso Común
 Static  NAT	Alta			Baja		Servidores públicos
 Dynamic NAT	Media			Media		Pequeñas LAN con IPs limitadas
@@ -174,10 +183,12 @@ PAT		Baja (1 IP)		Alta		Conexión de usuarios a Internet
 
 
 📂 Archivos del Proyecto
-
+-
+-
 En la carpeta del repositorio encontrarás los siguientes recursos:
 
 Archivo	Descripción
+-
 nat-static.pkt	Escenario configurado para práctica de NAT estático.
 https://drive.google.com/file/d/1g1zVPhoehzEmpyrZ74MHnSG9lVf0ClHv/view?usp=sharing
 
