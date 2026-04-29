@@ -1,0 +1,6 @@
+root         899  0.0  0.7  67748 15488 ?        S    nov02   0:00 /usr/lib/x86_64-linux-gnu/sddm/sddm-helper --socket /tmp/sddm-auth-10167c36-1310-4758-b51f-696c08901ddb --id 1 --start /usr/bin/startlxqt --user alejandro --autologin
+root     2557334  0.0  0.3  18544  7484 ?        Ss   14:14   0:00 sshd: alejandro [priv]
+root     2557462  0.0  0.3  18548  7868 ?        Ss   14:14   0:00 sshd: alejandro [priv]
+alejand+ 2557629  0.0  0.3  18840  7204 ?        S    14:14   0:01 sshd: alejandro@pts/0
+alejand+ 2557630  0.0  0.3  18680  6440 ?        S    14:14   0:00 sshd: alejandro@notty
+alejand+ 2607736  0.0  0.1  11888  2304 pts/0    S+   16:56   0:00 grep --color=auto alejandro
