@@ -59,33 +59,49 @@ Los temas que se abordan a lo largo de las prácticas son:
 ## 📁 Estructura de esta carpeta
 
 Cada subcarpeta contiene una práctica independiente con:
-- Un archivo `README.md` explicativo (teoría, objetivo, pasos y desafíos).
+- Un archivo `README.md` explicativo (teoría, objetivo, pasos, **Tips**, desafío y **ejercicio extra**).
 - Uno o más scripts `.sh` listos para ejecutar.
 - Material adicional o ejemplos de resultados.
 
+### Serie actual: STDIN, STDOUT y STDERR (01–20)
+
+La carpeta `Ejercicios-STDIN-STDOUT-STDERR/` organiza **20 ejercicios progresivos**:
+
+| Bloque | Ejercicios | Contenido |
+|--------|------------|-----------|
+| Fundamentos | 01–03 | `>`, `>>`, `<` |
+| stderr | 04–05 | `2>`, `2>>` |
+| Combinación | 06–10 | `&>`, separación, `/dev/null`, E/S combinadas |
+| Pipes | 11–14 | `\|`, cadenas, `grep`, `wc` |
+| stderr + pipes | 15–16 | comportamiento del pipe, `2>&1` |
+| Integración | 17–20 | repaso, scripts, `if`, proyecto de logs |
+
+**Recomendación:** completar los ejercicios en orden numérico; cada README indica prerequisitos.
+
 Ejemplo de estructura:
 
+```
 /Ejercicios/
-│
-├── 01-comandos-basicos/
-│ ├── README.md
-│ └── script.sh
-│
-├── 02-gestión-de-archivos/
-│ ├── README.md
-│ └── ejemplos/
-│
-└── 03-STDIN-STDOUT-STDERR/
-├── README.md
-├── script.sh
-└── ejercicios-adicionales/
+├── readme.md
+└── Ejercicios-STDIN-STDOUT-STDERR/
+    ├── 01-redireccion-salida-basica/
+    │   ├── README.md
+    │   └── script.sh
+    ├── 02-redireccion-salida-append/
+    │   ├── README.md
+    │   └── script.sh
+    ...
+    └── 20-backup-logs-con-pipes-y-redireccion/
+        ├── README.md
+        └── script.sh
+```
 
 ## 🧩 Cómo trabajar cada práctica
 
-1. Leer el archivo `README.md` de la práctica correspondiente.  
+1. Leer el archivo `README.md` de la práctica correspondiente (respetar el orden 01→20 en la serie STDIN/STDOUT/STDERR).  
 2. Ejecutar paso a paso los comandos indicados en el terminal.  
-3. Observar los resultados y realizar las preguntas de reflexión.  
-4. Probar los **desafíos adicionales** propuestos.  
+3. Revisar la sección **Tips** antes de pasar al siguiente ejercicio.  
+4. Completar el **ejercicio extra** y el **desafío adicional**.  
 5. Documentar tus observaciones y resultados para compartirlos o subirlos a tu repositorio personal.
 
 ---
